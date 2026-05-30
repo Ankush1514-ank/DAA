@@ -1,46 +1,53 @@
-class CountingSort
-{
-    static void countingSort(int arr[])
-    {
-        int count[] = new int[101];
+import java.util.*;
 
-        for(int i = 0; i < arr.length; i++)
-        {
-            count[arr[i]]++;
+public class CountingSort {
+
+    static void countingSort(int a[], int n) {
+        int count[] = new int[101]; // Marks range 0-100
+
+        for (int i = 0; i < n; i++) {
+            count[a[i]]++;
         }
 
         int index = 0;
 
-        for(int i = 0; i <= 100; i++)
-        {
-            while(count[i] > 0)
-            {
-                arr[index] = i;
-                index++;
-
+        for (int i = 0; i <= 100; i++) {
+            while (count[i] > 0) {
+                a[index++] = i;
                 count[i]--;
             }
         }
     }
 
-    public static void main(String args[])
-    {
-        int marks[] = {78, 45, 90, 67, 45, 100, 89, 78};
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter size :");
+        int n = sc.nextInt();
 
-        System.out.println("Before Sorting:");
+        Random r = new Random();
+        int a[] = new int[n];
 
-        for(int x : marks)
-        {
-            System.out.print(x + " ");
+        System.out.println("Marks in the array :");
+
+        for (int i = 0; i < n; i++) {
+            a[i] = r.nextInt(101); // 0 to 100
+            System.out.print(a[i] + " ");
         }
 
-        countingSort(marks);
+        long start = System.nanoTime();
+        countingSort(a, n);
+        long end = System.nanoTime();
 
-        System.out.println("\n\nAfter Sorting:");
+        double time = (end - start) / 1e6;
 
-        for(int x : marks)
-        {
-            System.out.print(x + " ");
+        System.out.println("\nSorted List :");
+
+        for (int i : a) {
+            System.out.print(i + " ");
         }
+
+        System.out.println("\nTime taken : " + time + " ms");
+
+        sc.close();
     }
 }
